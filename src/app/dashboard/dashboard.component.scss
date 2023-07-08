@@ -1,0 +1,53 @@
+:host {
+    display: block;
+    padding: 20px;
+}
+
+.big-numbers {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+
+    mat-card {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th,
+    td {
+        text-align: center;
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    th {
+        background-color: #4CAF50;
+        color: white;
+    }
+}
+
+td {
+    &.success {
+        color: green;
+    }
+
+    &.failed {
+        color: red;
+    }
+}
+
+.mat-table {
+    width: 100%;
+    max-width: 100%;
+    overflow: auto;
+}
