@@ -1,51 +1,65 @@
 <div class="big-numbers" fxLayout="row" fxLayoutGap="20px">
-    <mat-card fxFlex="30">
-      <mat-card-content>
-        <h2>Total: {{logData.length}}</h2>
-      </mat-card-content>
-    </mat-card>
-    <mat-card fxFlex="30">
-      <mat-card-content>
-        <h2>Success: {{countSuccess()}}</h2>
-      </mat-card-content>
-    </mat-card>
-    <mat-card fxFlex="30">
-      <mat-card-content>
-        <h2>Failed: {{countFailed()}}</h2>
-      </mat-card-content>
-    </mat-card>
-  </div>
-  
-  <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="logData" class="full-width-table">
-  
-      <ng-container matColumnDef="_id">
-        <th mat-header-cell *matHeaderCellDef>ID</th>
-        <td mat-cell *matCellDef="let log">{{log._id}}</td>
-      </ng-container>
-  
-      <ng-container matColumnDef="nome_job">
-        <th mat-header-cell *matHeaderCellDef>Job Name</th>
-        <td mat-cell *matCellDef="let log">{{log.nome_job}}</td>
-      </ng-container>
-  
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef>Status</th>
-        <td mat-cell *matCellDef="let log" [ngClass]="{'failed': log.status === 'failed', 'success': log.status === 'success'}">{{log.status}}</td>
-      </ng-container>      
-  
-      <ng-container matColumnDef="data">
-        <th mat-header-cell *matHeaderCellDef>Date</th>
-        <td mat-cell *matCellDef="let log">{{log.data | date:'short'}}</td>
-      </ng-container>
-  
-      <ng-container matColumnDef="error_description">
-        <th mat-header-cell *matHeaderCellDef>Error</th>
-        <td mat-cell *matCellDef="let log">{{log.error_description}}</td>
-      </ng-container>
-  
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  </div>
-  
+  <mat-card fxFlex="30">
+    <mat-card-content>
+      <!-- Exibindo o número total de jobs -->
+      <h2>Total: {{logData.length}}</h2>
+    </mat-card-content>
+  </mat-card>
+  <mat-card fxFlex="30">
+    <mat-card-content>
+      <!-- Exibindo o número total de jobs bem-sucedidos -->
+      <h2>Success: {{countSuccess()}}</h2>
+    </mat-card-content>
+  </mat-card>
+  <mat-card fxFlex="30">
+    <mat-card-content>
+      <!-- Exibindo o número total de jobs que falharam -->
+      <h2>Failed: {{countFailed()}}</h2>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="logData" class="full-width-table">
+
+    <!-- Coluna ID -->
+    <ng-container matColumnDef="_id">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let log">{{log._id}}</td>
+    </ng-container>
+
+    <!-- Coluna Nome do Job. O evento click abre os detalhes do job -->
+    <ng-container matColumnDef="nome_job">
+      <th mat-header-cell *matHeaderCellDef>Job Name</th>
+      <td mat-cell *matCellDef="let job"><a (click)="openJobDetails(job)">{{job.nome_job}}</a></td>
+    </ng-container>
+
+    <!-- Coluna Status. O status determina a classe de cor do texto -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let log" [ngClass]="{'failed': log.status === 'failed', 'success': log.status === 'success'}">{{log.status}}</td>
+    </ng-container>      
+
+    <!-- Coluna Data de Início. A data é formatada para uma forma curta -->
+    <ng-container matColumnDef="data_inicial">
+      <th mat-header-cell *matHeaderCellDef>Start Date</th>
+      <td mat-cell *matCellDef="let log">{{log.data_inicial | date:'short'}}</td>
+    </ng-container>
+
+    <!-- Coluna Data de Fim. A data é formatada para uma forma curta -->
+    <ng-container matColumnDef="data_final">
+      <th mat-header-cell *matHeaderCellDef>End Date</th>
+      <td mat-cell *matCellDef="let log">{{log.data_final | date:'short'}}</td>
+    </ng-container>
+
+    <!-- Coluna Descrição do Erro -->
+    <ng-container matColumnDef="error_description">
+      <th mat-header-cell *matHeaderCellDef>Error</th>
+      <td mat-cell *matCellDef="let log">{{log.error_description}}</td>
+    </ng-container>
+
+    <!-- Definindo as colunas para as linhas de cabeçalho e de dados -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
