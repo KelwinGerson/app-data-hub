@@ -130,8 +130,8 @@
             "_id": "7",
             "nome_job": "Job 7",
             "status": "success",
-            "data_inicial": "2023-07-04T20:00:00Z",
-            "data_final": "2023-07-04T22:00:00Z",
+            "data_inicial": "2023-01-04T20:00:00Z",
+            "data_final": "2023-01-04T22:00:00Z",
             "error_description": "",
             "child_jobs": [
                 {
