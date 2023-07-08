@@ -65,6 +65,11 @@ export class DashboardComponent implements OnInit {
     this.dataSource = this.logData.filter(job => job.nome_job === filterValue)
   }
 
+  resetFilter() {
+    // limpando o array dataSource
+    this.dataSource = [...this.logData]
+  }
+
   // Aplica o filtro de data (a ser implementado)
   applyDateFilter(event: MatDatepickerInputEvent<Date>) {
     const filterValue = event.value;
