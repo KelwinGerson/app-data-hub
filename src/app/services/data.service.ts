@@ -1,5 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 export interface Log {
   _id: string;
@@ -14,43 +15,12 @@ export interface Log {
 })
 
 export class DataService {
+  private readonly API_URL = 'http://localhost:3000/logs'
 
-  
-  mockData  = [
-    {
-      _id: '1',
-      nome_job: 'Job 1',
-      status: 'success',
-      data: '2023-07-07T10:30:00',
-      error_description: ''
-    },
-    {
-      _id: '2',
-      nome_job: 'Job 2',
-      status: 'failed',
-      data: '2023-07-07T11:00:00',
-      error_description: 'Error message'
-    },
-    {
-      _id: '3',
-      nome_job: 'Job 3',
-      status: 'failed',
-      data: '2023-07-07T11:00:00',
-      error_description: 'Error message'
-    },
-    {
-      _id: '4',
-      nome_job: 'Job 4',
-      status: 'failed',
-      data: '2023-07-07T11:00:00',
-      error_description: 'Error message'
-    },
-    // adicione mais dados conforme necessário
-  ];
+  constructor(private http: HttpClient) { }
 
-  constructor() { }
-
-  getLogData() {
-    return of(this.mockData )
+  // OBSERVABLE PROVIDE SUPPORT FOR PASSING MESSAGES BETWEEN PARTS OF YOUR APP. ASYNC PROGRAMMING AND HANDLING MULTIPLE VALUES.
+  getLogs(): Observable<any> {
+    return this.http.get(this.API_URL)
   }
 }

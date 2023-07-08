@@ -1,0 +1,40 @@
+{
+    "logs": [
+        {
+            "_id": "1",
+            "nome_job": "Job 1",
+            "status": "success",
+            "data_inicial": "2023-07-01T20:00:00Z",
+            "data_final": "2023-07-01T22:00:00Z",
+            "error_description": "",
+            "child_jobs": [
+                {
+                    "_id": "1.1",
+                    "nome_job": "Job 1.1",
+                    "status": "success",
+                    "data_inicial": "2023-07-01T20:10:00Z",
+                    "data_final": "2023-07-01T21:00:00Z",
+                    "error_description": ""
+                }
+            ]
+        },
+        {
+            "_id": "2",
+            "nome_job": "Job 2",
+            "status": "success",
+            "data_inicial": "2023-07-01T20:00:00Z",
+            "data_final": "2023-07-01T22:00:00Z",
+            "error_description": "",
+            "child_jobs": [
+                {
+                    "_id": "2.1",
+                    "nome_job": "Job 2.1",
+                    "status": "success",
+                    "data_inicial": "2023-07-01T20:10:00Z",
+                    "data_final": "2023-07-01T21:00:00Z",
+                    "error_description": ""
+                }
+            ]
+        }
+    ]
+}
