@@ -51,3 +51,14 @@ td {
     max-width: 100%;
     overflow: auto;
 }
+
+.job-link {
+    color: blue; 
+    text-decoration: underline; 
+  
+    &:hover {
+      cursor: pointer;
+      color: darkblue;
+    }
+  }
+  

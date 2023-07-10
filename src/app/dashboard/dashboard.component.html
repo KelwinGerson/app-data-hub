@@ -1,20 +1,10 @@
+<!-- INDICADORES -->
+
 <div class="big-numbers" fxLayout="row" fxLayoutGap="20px">
-  <mat-card fxFlex="30">
+  <mat-card fxFlex="60">
     <mat-card-content>
-      <!-- Exibindo o número total de jobs -->
-      <h2>Total: {{logData.length}}</h2>
-    </mat-card-content>
-  </mat-card>
-  <mat-card fxFlex="30">
-    <mat-card-content>
-      <!-- Exibindo o número total de jobs bem-sucedidos -->
-      <h2>Success: {{countSuccess()}}</h2>
-    </mat-card-content>
-  </mat-card>
-  <mat-card fxFlex="30">
-    <mat-card-content>
-      <!-- Exibindo o número total de jobs que falharam -->
-      <h2>Failed: {{countFailed()}}</h2>
+      <!-- Exibindo o número total de jobs e o número de jobs que falharam -->
+      <h2>Jobs: {{countFailed()}}/{{countTotal()}}</h2>
     </mat-card-content>
   </mat-card>
 </div>
@@ -28,14 +18,6 @@
       <mat-option *ngFor="let jobName of jobNames" [value]="jobName">{{jobName}}</mat-option>
     </mat-select>
   </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <mat-label>Filter by Date</mat-label>
-    <input matInput [matDatepicker]="picker" (dateChange)="applyDateFilter($event)">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
-
   <button mat-raised-button (click)="resetFilter()">Limpar Filtro</button>
 </div>
 
@@ -54,7 +36,7 @@
     <!-- Coluna Nome do Job. O evento click abre os detalhes do job -->
     <ng-container matColumnDef="nome_job">
       <th mat-header-cell *matHeaderCellDef>Job Name</th>
-      <td mat-cell *matCellDef="let job"><a (click)="openJobDetails(job)">{{job.nome_job}}</a></td>
+      <td mat-cell *matCellDef="let job"><a class="job-link" title="Click for more details" (click)="openJobDetails(job)">{{job.nome_job}}</a></td>
     </ng-container>
 
     <!-- Coluna Status. O status determina a classe de cor do texto -->
@@ -86,7 +68,7 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  
+
   <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 
 </div>

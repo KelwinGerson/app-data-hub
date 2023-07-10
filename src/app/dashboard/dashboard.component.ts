@@ -2,9 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataService, Log } from '../services/data.service';
 import { MatDialog } from '@angular/material/dialog';
 import { JobDetailsComponent } from './job-details/job-details.component';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatSelectChange } from '@angular/material/select';
-import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -16,9 +14,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class DashboardComponent implements OnInit {
 
-  @ViewChild(MatSort, { static: true }) sort: MatSort | undefined;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | undefined;
-
 
   // Colunas a serem exibidas na tabela
   displayedColumns: string[] = ['_id', 'nome_job', 'status', 'data_inicial', 'data_final', 'error_description'];
@@ -55,11 +51,6 @@ export class DashboardComponent implements OnInit {
       // MatTableDataSource é uma classe do Material Angular que é usada para fornecer dados para a tabela
       this.dataSource = new MatTableDataSource(this.logData);
 
-      // Atribua a instância do MatSort à propriedade sort do dataSource
-      // MatSort é uma diretiva que permite a ordenação interativa de uma tabela
-      // Ao atribuir a instância do MatSort ao dataSource, a tabela será capaz de controlar sua ordenação
-      this.dataSource.sort = this.sort;
-
       // Atribua a instância do MatPaginator à propriedade paginator do dataSource
       // MatPaginator é um componente que fornece navegação para a tabela
       // Ao atribuir a instância do MatPaginator ao dataSource, a tabela será capaz de controlar sua paginação
@@ -70,12 +61,17 @@ export class DashboardComponent implements OnInit {
 
   // Conta o número de jobs com status 'success'
   countSuccess(): number {
-    return this.logData.filter(log => log.status === 'success').length;
+    return this.dataSource ? this.dataSource.data.filter((log: Log) => log.status === 'success').length : 0;
   }
 
   // Conta o número de jobs com status 'failed'
   countFailed(): number {
-    return this.logData.filter(log => log.status === 'failed').length;
+    return this.dataSource ? this.dataSource.data.filter((log: Log) => log.status === 'failed').length : 0;
+  }
+
+  // Conta o número de jobs
+  countTotal(): number {
+    return this.dataSource ? this.dataSource.data.length: 0 ;
   }
 
   // Abre o diálogo de detalhes do job
@@ -88,20 +84,13 @@ export class DashboardComponent implements OnInit {
   // Aplica o filtro de job e atualiza o dataSource
   applyFilter(event: MatSelectChange) {
     const filterValue = event.value;
-    console.log(filterValue)
-    this.dataSource = this.logData.filter(job => job.nome_job === filterValue)
+    this.dataSource = new MatTableDataSource(this.logData.filter(job => job.nome_job === filterValue));
+    this.dataSource.paginator = this.paginator;
   }
 
   resetFilter() {
     // limpando o array dataSource
     this.dataSource = new MatTableDataSource(this.logData);
     this.dataSource.paginator = this.paginator;
-  }
-
-  // Aplica o filtro de data (a ser implementado)
-  applyDateFilter(event: MatDatepickerInputEvent<Date>) {
-    const filterValue = event.value;
-    // Aqui você aplica o filtro baseado na data. Você precisará implementar a lógica de como você quer que isso funcione.
-    // Isso depende de como você está armazenando suas datas e pode envolver a conversão do objeto Date em uma string ou timestamp, por exemplo.
   }
 }
